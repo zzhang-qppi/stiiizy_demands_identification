@@ -1,171 +1,171 @@
-﻿,label,questions
-0,外观好,Does the comment mention that the appearance is good?
-1,产品质量好,Does the comment mention that the product has good quality?
-2,性价比高/价格实惠/价格低,Does the comment mention that the product offers a high cost-to-value ratio or is affordable?
-3,产品环保,Does the comment mention that the product is environmentally friendly?
-4,品牌好,Does the comment mention that the brand of the product is good?
-5,推荐,Does the comment recommend the product?
-6,方便购买,Does the comment mention that the product is easy to purchase?
-7,外观差,Does the comment mention that the appearance is poor?
-8,产品质量差,Does the comment mention that the product has poor quality?
-9,性价比低/价格高,Does the comment mention that the cost-to-value ratio is low or the price is high?
-10,不方便购买,Does the comment mention that it's inconvenient to purchase the product?
-11,有防伪/防伪好用,Does the comment mention that the product has effective anti-counterfeiting features?
-12,防伪差/难判断真伪,Does the comment mention that the anti-counterfeiting features are poor or it's difficult to determine authenticity?
-13,购买渠道,Does the comment mention the purchase channel of the product?
-14,coil/pod材质好,Does the comment mention that the material quality of coil/pod is good?
-15,liquid/oil质量好,Does the comment mention that the quality of liquid/oil is good?
-16,coil/pod材质差,Does the comment mention that the material quality of coil/pod is poor?
-17,liquid/oil质量差,Does the comment mention that the quality of liquid/oil is poor?
-18,liquid/oil太少或容量小,Does the comment mention that the liquid/oil capacity is too small?
-19,coil/pod接触差,Does the comment mention poor coil/pod contact?
-20,电池易用,Does the comment mention that the battery is easy to use?
-21,电池续航好,Does the comment mention that the battery has good battery life?
-22,电池安全,Does the comment mention that the battery is safe?
-23,电池不易用,Does the comment mention that the battery is not easy to use?
-24,电池续航差,Does the comment mention poor battery life?
-25,电池不安全,Does the comment mention that the battery is not safe?
-26,电池质量差,Does the comment mention poor battery quality?
-27,不可充电/电池无法使用,Does the comment mention that the product is not rechargeable or the battery is unusable?
-28,预热时间长,Does the comment mention that the preheating time is long?
-29,预热操作复杂,Does the comment mention that the preheating operation is complex?
-30,不需要预热功能,Does the comment mention that the product doesn't need preheating functionality?
-31,调温好,Does the comment mention that the temperature control is good?
-32,调气道好,Does the comment mention that the airflow adjustment is good?
-33,调压好,Does the comment mention that the pressure adjustment is good?
-34,按键好用,Does the comment mention that the buttons are user-friendly?
-35,好操作/操作方便,Does the comment mention that the product is easy to operate?
-36,调温差,Does the comment mention poor temperature control?
-37,调气道差,Does the comment mention poor airflow adjustment?
-38,调压差,Does the comment mention poor pressure adjustment?
-39,按键难用,Does the comment mention that the buttons are difficult to use?
-40,操作难/操作复杂,Does the comment mention that the operation is difficult or complex?
-41,烟雾量合适/烟雾量大,Does the comment mention that the vapor production is appropriate or high?
-42,有提示,Does the comment mention the presence of prompts?
-43,不堵塞,Does the comment mention that the product doesn't clog?
-44,不漏油,Does the comment mention that the product doesn't leak oil?
-45,味道好,Does the comment mention that the flavor is good?
-46,口感好,Does the comment mention that the taste is good?
-47,hit好,Does the comment mention that the throat hit (hit) is good?
-48,high/上头,Does the comment mention getting a strong sensation (high)?
-49,烟雾量太大/烟雾量太小,Does the comment mention excessive vapor production or too little vapor?
-50,堵塞,Does the comment mention any clogging issues?
-51,漏油,Does the comment mention any leaking or oil spillage problems?
-52,liquid/oil剩余或浪费,Does the comment mention any issues related to leftover liquid or oil waste?
-53,味道差,Does the comment mention any complaints about a bad taste?
-54,hit差,"Does the comment mention any issues with the ""hit"" or vaping experience?"
-55,不high/不上头,Does the comment mention that it doesn't provide the desired high or buzz?
-56,抽吸方式,Does the comment discuss different inhalation methods?
-57,防水,Does the comment mention any waterproof features?
-58,手感好,Does the comment mention a positive hand feel or touch experience?
-59,便携,Does the comment discuss the portability of the product?
-60,存放/携带时堵塞,Does the comment mention clogging when storing or carrying the product?
-61,存放/携带时漏油,Does the comment mention oil leakage during storage or transportation?
-62,味道散/味道大,Does the comment talk about a strong or unpleasant odor?
-63,存放/携带时变质,Does the comment mention product deterioration during storage or transportation?
-64,手感差,Does the comment describe a poor hand feel or touch experience?
-65,不便携,Does the comment discuss the lack of portability?
-66,party/聚会,Does the comment mention using the product at parties or gatherings?
-67,游乐园,Does the comment mention using the product at an amusement park?
-68,上飞机/过安检,Does the comment mention using the product on an airplane or during security checks?
-69,家里/室内,Does the comment discuss using the product at home or indoors?
-70,街头,Does the comment mention using the product on the street?
-71,酒吧,Does the comment discuss using the product at a bar?
-72,坐车/开车,Does the comment mention using the product while driving or in a car?
-73,徒步,Does the comment talk about using the product while walking or on foot?
-74,休闲/娱乐,Does the comment mention using the product for leisure or entertainment?
-75,戒烟,Does the comment mention using the product as a smoking cessation aid?
-76,情绪缓解/缓解焦虑,Does the comment discuss using the product for stress relief or anxiety reduction?
-77,外观设计新颖/有设计感,Does the comment mention a novel or well-designed external appearance?
-78,外观时尚/独特/有吸引力/cool,"Does the comment describe the product's stylish, unique, attractive, or cool appearance?"
-79,外观年轻化,Does the comment mention the product's youthful appearance?
-80,外观设计简约,Does the comment describe the product's simple external design?
-81,颜色好看/颜色漂亮,Does the comment praise the product's attractive colors?
-82,材质好/质感好,Does the comment mention good material quality or texture?
-83,品质好/耐用/产品质量稳定可靠/产品无故障,"Does the comment praise the product's high quality, durability, or reliability without issues?"
-84,防摔/摔不坏/多次掉落仍能正常工作/产品坚固/产品结实,Does the comment mention any drop resistance or sturdiness?
-85,品牌知名度高,Does the comment mention a well-known brand?
-86,品牌值得信赖/推荐这个品牌,Does the comment express trust in or recommend the brand?
-87,品牌形象好/独特的品牌形象,Does the comment mention a positive or unique brand image?
-88,店员推荐,Does the comment mention recommendations from store staff?
-89,网络推荐,Does the comment mention recommendations from online sources?
-90,材质差/质感差,Does the comment criticize poor material quality or texture?
-91,外观难看/难看,Does the comment criticize the product's external appearance as unattractive?
-92,廉价感,Does the comment describe a cheap or low-quality feel?
-93,品质差/不耐用/不稳定,"Does the comment criticize the product's quality, durability, or stability?"
-94,产品不防摔/容易摔坏/易碎/不坚固/不结实,Does the comment mention a lack of drop resistance or fragility?
-95,近期产品质量变差,Does the comment mention a recent decline in product quality?
-96,无防伪,Does the comment mention the absence of anti-counterfeiting measures?
-97,二维码无法查询/防伪程序出错/二维码扫不出来结果,Does the comment mention difficulties with scanning QR codes or anti-counterfeiting processes?
-98,颜色不对，怀疑是假的,Does the comment suggest the product might be fake due to incorrect colors?
-99,味道不对，怀疑是假的,Does the comment suggest the product might be fake due to an incorrect taste?
-100,二维码被破坏/验证码被破坏,Does the comment mention that the QR code or verification code was damaged?
-101,dispensary/正规渠道,Does the comment mention that the product was purchased from a dispensary or through a legitimate channel?
-102,Gray Market/非正规渠道/地下交易/从他人处购买,"Does the comment mention that the product was obtained through the gray market, an unofficial channel, or from underground sources?"
-103,其他人赠与,Does the comment mention that the product was received as a gift from someone else?
-104,coil/pod材质不安全,Does the comment mention that the coil or pod material is unsafe?
-105,liquid/oil颜色不好,Does the comment mention that the color of the liquid or oil is not good?
-106,liquid/oil透明度不高或liquid/oil浑浊,Does the comment mention that the liquid or oil has low transparency or appears cloudy?
-107,liquid/oil被阳光照射,Does the comment mention that the liquid or oil has been exposed to sunlight?
-108,liquid/oil有气泡,Does the comment mention that the liquid or oil has air bubbles?
-109,liquid/oil氧化,Does the comment mention that the liquid or oil has oxidized?
-110,近期liquid/oil变差,Does the comment mention that the quality of the liquid or oil has deteriorated recently?
-111,coil/pod接触不良或coil/pod插入后无法使用,"Does the comment mention poor contact with the coil or pod, or that it can't be used after insertion?"
-112,coil/pod线脱落,Does the comment mention that the coil or pod wire has detached?
-113,coil/pod不稳固,Does the comment mention that the coil or pod is not stable?
-114,充电快速,Does the comment mention fast charging?
-115,电池功率高/加热快,Does the comment mention that the battery has high power output or heats up quickly?
-116,电池续航久/长续航,Does the comment mention long battery life or extended battery durability?
-117,电池耐用/电池寿命长,Does the comment mention that the battery is durable or has a long lifespan?
-118,电池异常提醒/低电量提醒/低温提醒,"Does the comment mention any abnormal battery warnings, low battery alerts, or low-temperature alerts?"
-119,充电太久,Does the comment mention that the charging time is excessively long?
-120,充电不稳定,Does the comment mention unstable charging?
-121,电池续航短/短续航/需要频繁充电,"Does the comment mention short battery life, the need for frequent charging, or rapid battery deterioration?"
-122,电池不耐用/电池寿命短/用了一段时间后电池变差,"Does the comment mention that the battery is not durable or has a short lifespan, especially after some use?"
-123,充电不拔coil/pod出现问题,Does the comment mention issues related to not removing the coil or pod during charging?
-124,调温麻烦/调温复杂,Does the comment mention difficulty in adjusting temperature or complex temperature adjustment?
-125,调温不准确/温度过高/温度过低,"Does the comment mention inaccurate temperature control, excessively high or low temperatures?"
-126,不可调温,Does the comment mention that the product cannot be temperature adjusted?
-127,无温度过高保护/无温度过高控制,Does the comment mention the absence of high-temperature protection or control?
-128,调压麻烦/调压复杂,Does the comment mention difficulty in adjusting voltage or complex voltage adjustment?
-129,不可调气,Does the comment mention that the product lacks adjustable airflow?
-130,调压麻烦/调压复杂,Does the comment mention difficulty in adjusting voltage or complex voltage adjustment?
-131,调压不准确,Does the comment mention inaccurate voltage control?
-132,不能调压/无法调压导致堵塞或炸油,"Does the comment mention problems caused by the inability to adjust voltage, such as clogging or oil explosions?"
-133,有震动提示,Does the comment mention vibration alerts?
-134,有闪烁提示/有亮灯提示,Does the comment mention blinking or light indicators?
-135,high/上头快,Does the comment mention a strong and rapid high or intoxicating effect?
-136,high/上头持续时间久,Does the comment mention a long-lasting high or intoxicating effect?
-137,温度低，堵塞,Does the comment mention clogging at low temperatures?
-138,堵塞问题难解决,Does the comment mention difficult-to-resolve clogging issues?
-139,比之前堵塞严重,Does the comment mention clogging being more severe than before?
-140,温度高，漏油,Does the comment mention oil leakage at high temperatures?
-141,漏油问题难解决,Does the comment mention difficult-to-resolve oil leakage problems?
-142,blinker导致漏油,Does the comment mention oil leakage caused by blinking?
-143,比之前漏油严重,Does the comment mention oil leakage being more severe than before?
-144,没电导致liquid/oil浪费,Does the comment mention wasting liquid or oil due to a dead battery?
-145,有冷凝液导致浪费,Does the comment mention wasting liquid or oil due to condensation?
-146,近期味道差/比之前味道差,Does the comment mention recent poor taste compared to before?
-147,有焦糊味,Does the comment mention a burnt taste?
-148,high/上头慢,Does the comment mention a slow and gradual high or intoxicating effect?
-149,high/上头持续时间短,Does the comment mention a short-lasting high or intoxicating effect?
-150,正常抽吸,Does the comment mention that the product allows for normal inhalation?
-151,blinker/长吸,Does the comment mention that the product has a long-lasting blinker or a prolonged inhale feature?
-152,尺寸小巧/尺寸合适,Does the comment mention that the product has a compact or appropriately sized design?
-153,足够隐蔽,Does the comment mention that the product is discreet enough?
-154,放口袋很合适/适配口袋/方便放口袋,Does the comment mention that the product is convenient to put in pockets or is pocket-friendly?
-155,很轻,Does the comment mention that the product is lightweight?
-156,新产品堵塞/收到货时堵塞,Does the comment mention that the product experienced clogging when it was new or upon receipt?
-157,放车内堵塞,Does the comment mention that the product experienced clogging when placed in a car?
-158,放空调附近漏油,Does the comment mention that the product leaked oil when placed near an air conditioner?
-159,新产品漏油/收到货时漏油,Does the comment mention that the product leaked oil when it was new or upon receipt?
-160,放车内漏油,Does the comment mention that the product leaked oil when placed in a car?
-161,放口袋中漏油,Does the comment mention that the product leaked oil when carried in a pocket?
-162,飞机上漏油/低压漏油,Does the comment mention that the product leaked oil during a flight or due to low pressure?
-163,安检时有味道,Does the comment mention that the product had a noticeable odor during security checks?
-164,过于光滑,Does the comment mention that the product's surface is excessively smooth?
-165,硌手/锋利,Does the comment mention that the product's edges are sharp or uncomfortable to hold?
-166,外壳磨损,Does the comment mention that the product's casing shows signs of wear or damage?
-167,尺寸太大/尺寸太小/尺寸不合适,"Does the comment mention that the product's size is either too large, too small, or not suitable?"
-168,不隐蔽,Does the comment mention that the product is not discreet?
-169,很重,Does the comment mention that the product is heavy?
+﻿,label,questions,criterion
+0,外观好,Does the comment mention that the appearance is good?,Appearance is good
+1,产品质量好,Does the comment mention that the product has good quality?,Product has good quality
+2,性价比高/价格实惠/价格低,Does the comment mention that the product offers a high cost-to-value ratio or is affordable?,Product offers a high cost-to-value ratio or is affordable
+3,产品环保,Does the comment mention that the product is environmentally friendly?,Product is environmentally friendly
+4,品牌好,Does the comment mention that the brand of the product is good?,Brand of the product is good
+5,推荐,Does the comment recommend the product?,Recommends the product
+6,方便购买,Does the comment mention that the product is easy to purchase?,Product is easy to purchase
+7,外观差,Does the comment mention that the appearance is poor?,Appearance is poor
+8,产品质量差,Does the comment mention that the product has poor quality?,Product has poor quality
+9,性价比低/价格高,Does the comment mention that the cost-to-value ratio is low or the price is high?,Cost-to-value ratio is low or price is high
+10,不方便购买,Does the comment mention that it's inconvenient to purchase the product?,It's inconvenient to purchase the product
+11,有防伪/防伪好用,Does the comment mention that the product has effective anti-counterfeiting features?,Product has effective anti-counterfeiting features
+12,防伪差/难判断真伪,Does the comment mention that the anti-counterfeiting features are poor or it's difficult to determine authenticity?,Anti-counterfeiting features are poor or it's difficult to determine authenticity
+13,购买渠道,Does the comment mention the purchase channel of the product?,Purchase channel of the product
+14,coil/pod材质好,Does the comment mention that the material quality of coil/pod is good?,Material quality of coil or pod is good
+15,liquid/oil质量好,Does the comment mention that the quality of liquid/oil is good?,Quality of liquid or oil is good
+16,coil/pod材质差,Does the comment mention that the material quality of coil/pod is poor?,Material quality of coil or pod is poor
+17,liquid/oil质量差,Does the comment mention that the quality of liquid/oil is poor?,Quality of liquid or oil is poor
+18,liquid/oil太少或容量小,Does the comment mention that the liquid/oil capacity is too small?,Liquid or oil capacity is too small
+19,coil/pod接触差,Does the comment mention poor coil/pod contact?,Poor coil or pod contact
+20,电池易用,Does the comment mention that the battery is easy to use?,Battery is easy to use
+21,电池续航好,Does the comment mention that the battery has good battery life?,Battery has good battery life
+22,电池安全,Does the comment mention that the battery is safe?,Battery is safe
+23,电池不易用,Does the comment mention that the battery is not easy to use?,Battery is not easy to use
+24,电池续航差,Does the comment mention poor battery life?,Poor battery life
+25,电池不安全,Does the comment mention that the battery is not safe?,Battery is not safe
+26,电池质量差,Does the comment mention poor battery quality?,Poor battery quality
+27,不可充电/电池无法使用,Does the comment mention that the product is not rechargeable or the battery is unusable?,Product is not rechargeable or the battery is unusable
+28,预热时间长,Does the comment mention that the preheating time is long?,Preheating time is long
+29,预热操作复杂,Does the comment mention that the preheating operation is complex?,Preheating operation is complex
+30,不需要预热功能,Does the comment mention that the product doesn't need preheating functionality?,Product doesn't need preheating functionality
+31,调温好,Does the comment mention that the temperature control is good?,Temperature control is good
+32,调气道好,Does the comment mention that the airflow adjustment is good?,Airflow adjustment is good
+33,调压好,Does the comment mention that the pressure adjustment is good?,Pressure adjustment is good
+34,按键好用,Does the comment mention that the buttons are user-friendly?,Buttons are user-friendly
+35,好操作/操作方便,Does the comment mention that the product is easy to operate?,Product is easy to operate
+36,调温差,Does the comment mention poor temperature control?,Poor temperature control
+37,调气道差,Does the comment mention poor airflow adjustment?,Poor airflow adjustment
+38,调压差,Does the comment mention poor pressure adjustment?,Poor pressure adjustment
+39,按键难用,Does the comment mention that the buttons are difficult to use?,Buttons are difficult to use
+40,操作难/操作复杂,Does the comment mention that the operation is difficult or complex?,Operation is difficult or complex
+41,烟雾量合适/烟雾量大,Does the comment mention that the vapor production is appropriate or high?,Vapor production is appropriate or high
+42,有提示,Does the comment mention the presence of prompts?,Presence of prompts
+43,不堵塞,Does the comment mention that the product doesn't clog?,Product doesn't clog
+44,不漏油,Does the comment mention that the product doesn't leak oil?,Product doesn't leak oil
+45,味道好,Does the comment mention that the flavor is good?,Flavor is good
+46,口感好,Does the comment mention that the taste is good?,Taste is good
+47,hit好,Does the comment mention that the throat hit (hit) is good?,Throat hit (hit) is good
+48,high/上头,Does the comment mention getting a strong sensation (high)?,Getting a strong sensation (high)
+49,烟雾量太大/烟雾量太小,Does the comment mention excessive vapor production or too little vapor?,Excessive vapor production or too little vapor
+50,堵塞,Does the comment mention any clogging issues?,Clogging issues
+51,漏油,Does the comment mention any leaking or oil spillage problems?,Leaking or oil spillage problems
+52,liquid/oil剩余或浪费,Does the comment mention any issues related to leftover liquid or oil waste?,Issues related to leftover liquid or oil waste
+53,味道差,Does the comment mention any complaints about a bad taste?,Complaints about a bad taste
+54,hit差,"Does the comment mention any issues with the ""hit"" or vaping experience?","Issues with the ""hit"" or vaping experience"
+55,不high/不上头,Does the comment mention that it doesn't provide the desired high or buzz?,Doesn't provide the desired high or buzz
+56,抽吸方式,Does the comment discuss different inhalation methods?,Different inhalation methods
+57,防水,Does the comment mention any waterproof features?,Waterproof features
+58,手感好,Does the comment mention a positive hand feel or touch experience?,Positive hand feel or touch experience
+59,便携,Does the comment discuss the portability of the product?,Portability of the product
+60,存放/携带时堵塞,Does the comment mention clogging when storing or carrying the product?,Clogging when storing or carrying the product
+61,存放/携带时漏油,Does the comment mention oil leakage during storage or transportation?,Oil leakage during storage or transportation
+62,味道散/味道大,Does the comment talk about a strong or unpleasant odor?,Strong or unpleasant odor
+63,存放/携带时变质,Does the comment mention product deterioration during storage or transportation?,Product deterioration during storage or transportation
+64,手感差,Does the comment describe a poor hand feel or touch experience?,Poor hand feel or touch experience
+65,不便携,Does the comment discuss the lack of portability?,Lack of portability
+66,party/聚会,Does the comment mention using the product at parties or gatherings?,Using the product at parties or gatherings
+67,游乐园,Does the comment mention using the product at an amusement park?,Using the product at an amusement park
+68,上飞机/过安检,Does the comment mention using the product on an airplane or during security checks?,Using the product on an airplane or during security checks
+69,家里/室内,Does the comment discuss using the product at home or indoors?,Using the product at home or indoors
+70,街头,Does the comment mention using the product on the street?,Using the product on the street
+71,酒吧,Does the comment discuss using the product at a bar?,Using the product at a bar
+72,坐车/开车,Does the comment mention using the product while driving or in a car?,Using the product while driving or in a car
+73,徒步,Does the comment talk about using the product while walking or on foot?,Using the product while walking or on foot
+74,休闲/娱乐,Does the comment mention using the product for leisure or entertainment?,Using the product for leisure or entertainment
+75,戒烟,Does the comment mention using the product as a smoking cessation aid?,Using the product as a smoking cessation aid
+76,情绪缓解/缓解焦虑,Does the comment discuss using the product for stress relief or anxiety reduction?,Using the product for stress relief or anxiety reduction
+77,外观设计新颖/有设计感,Does the comment mention a novel or well-designed external appearance?,Novel or well-designed external appearance
+78,外观时尚/独特/有吸引力/cool,"Does the comment describe the product's stylish, unique, attractive, or cool appearance?","Product's stylish, unique, attractive, or cool appearance"
+79,外观年轻化,Does the comment mention the product's youthful appearance?,Product's youthful appearance
+80,外观设计简约,Does the comment describe the product's simple external design?,Product's simple external design
+81,颜色好看/颜色漂亮,Does the comment praise the product's attractive colors?,Product's attractive colors
+82,材质好/质感好,Does the comment mention good material quality or texture?,Good material quality or texture
+83,品质好/耐用/产品质量稳定可靠/产品无故障,"Does the comment praise the product's high quality, durability, or reliability without issues?","Product's high quality, durability, or reliability without issues"
+84,防摔/摔不坏/多次掉落仍能正常工作/产品坚固/产品结实,Does the comment mention any drop resistance or sturdiness?,Drop resistance or sturdiness
+85,品牌知名度高,Does the comment mention a well-known brand?,Well-known brand
+86,品牌值得信赖/推荐这个品牌,Does the comment express trust in or recommend the brand?,Trust in or recommend the brand
+87,品牌形象好/独特的品牌形象,Does the comment mention a positive or unique brand image?,Positive or unique brand image
+88,店员推荐,Does the comment mention recommendations from store staff?,Recommendations from store staff
+89,网络推荐,Does the comment mention recommendations from online sources?,Recommendations from online sources
+90,材质差/质感差,Does the comment criticize poor material quality or texture?,Criticism of poor material quality or texture
+91,外观难看/难看,Does the comment criticize the product's external appearance as unattractive?,Product's external appearance as unattractive
+92,廉价感,Does the comment describe a cheap or low-quality feel?,Cheap or low-quality feel
+93,品质差/不耐用/不稳定,"Does the comment criticize the product's quality, durability, or stability?","Criticism of the product's quality, durability, or stability"
+94,产品不防摔/容易摔坏/易碎/不坚固/不结实,Does the comment mention a lack of drop resistance or fragility?,Lack of drop resistance or fragility
+95,近期产品质量变差,Does the comment mention a recent decline in product quality?,Recent decline in product quality
+96,无防伪,Does the comment mention the absence of anti-counterfeiting measures?,Absence of anti-counterfeiting measures
+97,二维码无法查询/防伪程序出错/二维码扫不出来结果,Does the comment mention difficulties with scanning QR codes or anti-counterfeiting processes?,Difficulties with scanning QR codes or anti-counterfeiting processes
+98,颜色不对，怀疑是假的,Does the comment suggest the product might be fake due to incorrect colors?,Product might be fake due to incorrect colors
+99,味道不对，怀疑是假的,Does the comment suggest the product might be fake due to an incorrect taste?,Product might be fake due to an incorrect taste
+100,二维码被破坏/验证码被破坏,Does the comment mention that the QR code or verification code was damaged?,QR code or verification code was damaged
+101,dispensary/正规渠道,Does the comment mention that the product was purchased from a dispensary or through a legitimate channel?,The product was purchased from a dispensary or through a legitimate channel
+102,Gray Market/非正规渠道/地下交易/从他人处购买,"Does the comment mention that the product was obtained through the gray market, an unofficial channel, or from underground sources?","The product was obtained through the gray market, an unofficial channel, or from underground sources"
+103,其他人赠与,Does the comment mention that the product was received as a gift from someone else?,The product was received as a gift from someone else
+104,coil/pod材质不安全,Does the comment mention that the coil or pod material is unsafe?,The coil or pod material is unsafe
+105,liquid/oil颜色不好,Does the comment mention that the color of the liquid or oil is not good?,The color of the liquid or oil is not good
+106,liquid/oil透明度不高或liquid/oil浑浊,Does the comment mention that the liquid or oil has low transparency or appears cloudy?,The liquid or oil has low transparency or appears cloudy
+107,liquid/oil被阳光照射,Does the comment mention that the liquid or oil has been exposed to sunlight?,The liquid or oil has been exposed to sunlight
+108,liquid/oil有气泡,Does the comment mention that the liquid or oil has air bubbles?,The liquid or oil has air bubbles
+109,liquid/oil氧化,Does the comment mention that the liquid or oil has oxidized?,The liquid or oil has oxidized
+110,近期liquid/oil变差,Does the comment mention that the quality of the liquid or oil has deteriorated recently?,The quality of the liquid or oil has deteriorated recently
+111,coil/pod接触不良或coil/pod插入后无法使用,"Does the comment mention poor contact with the coil or pod, or that it can't be used after insertion?","Poor contact with the coil or pod, or that it can't be used after insertion"
+112,coil/pod线脱落,Does the comment mention that the coil or pod wire has detached?,The coil or pod wire has detached
+113,coil/pod不稳固,Does the comment mention that the coil or pod is not stable?,The coil or pod is not stable
+114,充电快速,Does the comment mention fast charging?,Fast charging
+115,电池功率高/加热快,Does the comment mention that the battery has high power output or heats up quickly?,The battery has high power output or heats up quickly
+116,电池续航久/长续航,Does the comment mention long battery life or extended battery durability?,Long battery life or extended battery durability
+117,电池耐用/电池寿命长,Does the comment mention that the battery is durable or has a long lifespan?,The battery is durable or has a long lifespan
+118,电池异常提醒/低电量提醒/低温提醒,"Does the comment mention any abnormal battery warnings, low battery alerts, or low-temperature alerts?","Abnormal battery warnings, low battery alerts, or low-temperature alerts"
+119,充电太久,Does the comment mention that the charging time is excessively long?,The charging time is excessively long
+120,充电不稳定,Does the comment mention unstable charging?,Unstable charging
+121,电池续航短/短续航/需要频繁充电,"Does the comment mention short battery life, the need for frequent charging, or rapid battery deterioration?","Short battery life, the need for frequent charging, or rapid battery deterioration"
+122,电池不耐用/电池寿命短/用了一段时间后电池变差,"Does the comment mention that the battery is not durable or has a short lifespan, especially after some use?","The battery is not durable or has a short lifespan, especially after some use"
+123,充电不拔coil/pod出现问题,Does the comment mention issues related to not removing the coil or pod during charging?,Issues related to not removing the coil or pod during charging
+124,调温麻烦/调温复杂,Does the comment mention difficulty in adjusting temperature or complex temperature adjustment?,Difficulty in adjusting temperature or complex temperature adjustment
+125,调温不准确/温度过高/温度过低,"Does the comment mention inaccurate temperature control, excessively high or low temperatures?","Inaccurate temperature control, excessively high or low temperatures"
+126,不可调温,Does the comment mention that the product cannot be temperature adjusted?,The product cannot be temperature adjusted
+127,无温度过高保护/无温度过高控制,Does the comment mention the absence of high-temperature protection or control?,Absence of high-temperature protection or control
+128,调压麻烦/调压复杂,Does the comment mention difficulty in adjusting voltage or complex voltage adjustment?,Difficulty in adjusting voltage or complex voltage adjustment
+129,不可调气,Does the comment mention that the product lacks adjustable airflow?,The product lacks adjustable airflow
+130,调压麻烦/调压复杂,Does the comment mention difficulty in adjusting voltage or complex voltage adjustment?,Difficulty in adjusting voltage or complex voltage adjustment (Note: This is a repeated item)
+131,调压不准确,Does the comment mention inaccurate voltage control?,Inaccurate voltage control
+132,不能调压/无法调压导致堵塞或炸油,"Does the comment mention problems caused by the inability to adjust voltage, such as clogging or oil explosions?","Problems caused by the inability to adjust voltage, such as clogging or oil explosions"
+133,有震动提示,Does the comment mention vibration alerts?,Vibration alerts
+134,有闪烁提示/有亮灯提示,Does the comment mention blinking or light indicators?,Blinking or light indicators
+135,high/上头快,Does the comment mention a strong and rapid high or intoxicating effect?,A strong and rapid high or intoxicating effect
+136,high/上头持续时间久,Does the comment mention a long-lasting high or intoxicating effect?,A long-lasting high or intoxicating effect
+137,温度低，堵塞,Does the comment mention clogging at low temperatures?,Clogging at low temperatures
+138,堵塞问题难解决,Does the comment mention difficult-to-resolve clogging issues?,Difficult-to-resolve clogging issues
+139,比之前堵塞严重,Does the comment mention clogging being more severe than before?,Clogging being more severe than before
+140,温度高，漏油,Does the comment mention oil leakage at high temperatures?,Oil leakage at high temperatures
+141,漏油问题难解决,Does the comment mention difficult-to-resolve oil leakage problems?,Difficult-to-resolve oil leakage problems
+142,blinker导致漏油,Does the comment mention oil leakage caused by blinking?,Oil leakage caused by blinking
+143,比之前漏油严重,Does the comment mention oil leakage being more severe than before?,Oil leakage being more severe than before
+144,没电导致liquid/oil浪费,Does the comment mention wasting liquid or oil due to a dead battery?,Wasting liquid or oil due to a dead battery
+145,有冷凝液导致浪费,Does the comment mention wasting liquid or oil due to condensation?,Wasting liquid or oil due to condensation
+146,近期味道差/比之前味道差,Does the comment mention recent poor taste compared to before?,Recent poor taste compared to before
+147,有焦糊味,Does the comment mention a burnt taste?,A burnt taste
+148,high/上头慢,Does the comment mention a slow and gradual high or intoxicating effect?,A slow and gradual high or intoxicating effect
+149,high/上头持续时间短,Does the comment mention a short-lasting high or intoxicating effect?,A short-lasting high or intoxicating effect
+150,正常抽吸,Does the comment mention that the product allows for normal inhalation?,The product allows for normal inhalation
+151,blinker/长吸,Does the comment mention that the product has a long-lasting blinker or a prolonged inhale feature?,The product has a long-lasting blinker or a prolonged inhale feature
+152,尺寸小巧/尺寸合适,Does the comment mention that the product has a compact or appropriately sized design?,The product has a compact or appropriately sized design
+153,足够隐蔽,Does the comment mention that the product is discreet enough?,The product is discreet enough
+154,放口袋很合适/适配口袋/方便放口袋,Does the comment mention that the product is convenient to put in pockets or is pocket-friendly?,The product is convenient to put in pockets or is pocket-friendly
+155,很轻,Does the comment mention that the product is lightweight?,The product is lightweight
+156,新产品堵塞/收到货时堵塞,Does the comment mention that the product experienced clogging when it was new or upon receipt?,The product experienced clogging when it was new or upon receipt
+157,放车内堵塞,Does the comment mention that the product experienced clogging when placed in a car?,The product experienced clogging when placed in a car
+158,放空调附近漏油,Does the comment mention that the product leaked oil when placed near an air conditioner?,The product leaked oil when placed near an air conditioner
+159,新产品漏油/收到货时漏油,Does the comment mention that the product leaked oil when it was new or upon receipt?,The product leaked oil when it was new or upon receipt
+160,放车内漏油,Does the comment mention that the product leaked oil when placed in a car?,The product leaked oil when placed in a car
+161,放口袋中漏油,Does the comment mention that the product leaked oil when carried in a pocket?,The product leaked oil when carried in a pocket
+162,飞机上漏油/低压漏油,Does the comment mention that the product leaked oil during a flight or due to low pressure?,The product leaked oil during a flight or due to low pressure
+163,安检时有味道,Does the comment mention that the product had a noticeable odor during security checks?,The product had a noticeable odor during security checks
+164,过于光滑,Does the comment mention that the product's surface is excessively smooth?,The product's surface is excessively smooth
+165,硌手/锋利,Does the comment mention that the product's edges are sharp or uncomfortable to hold?,The product's edges are sharp or uncomfortable to hold
+166,外壳磨损,Does the comment mention that the product's casing shows signs of wear or damage?,The product's casing shows signs of wear or damage
+167,尺寸太大/尺寸太小/尺寸不合适,"Does the comment mention that the product's size is either too large, too small, or not suitable?","The product's size is either too large, too small, or not suitable"
+168,不隐蔽,Does the comment mention that the product is not discreet?,The product is not discreet
+169,很重,Does the comment mention that the product is heavy?,The product is heavy
