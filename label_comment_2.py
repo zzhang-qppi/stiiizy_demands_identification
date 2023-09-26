@@ -26,21 +26,18 @@ def get_response_from_list(m_comment, m_questions):
     comment_string = '\n'.join(
         [f"{chr(97+i)}. " + m_comment.iloc[i] for i in range(len(m_comment))]
     )
-    sys_message = f'''You evaluate {len(m_comment)} consumer's comments about a e-cigarette product against a list of {len(m_questions)} criteria. The comments are \n{comment_string}.
-    For each comment, you take each criterion from the list and answer a question that take a form like this: Does this comment mention [the criterion]?
-    I need {len(m_questions)} answers for each comment in a list indexed by numbers in the exact same order as the criteria list and separated by one new line character.
-    Since there are {len(m_comment)} comments, you give me {len(m_comment)} lists separated by five dashes '-'.
-    You should give me one and only one answer for each comment and criterion! Give me the answers in yes/no only. Don't give me the questions.
-    Here are the {len(m_questions)} criteria:'''
+    prompt = f'''Here is a buyer's comment of e-cigarette: "{m_comment}".
+    Give me the numerical indices of the following criteria that this comment mentions. 
+    I need answer in the form like "25, 33, 89, 100"\n'''
 
-    prompt = '\n'.join(
-        [f"{i+1}. " + m_questions.iloc[i] for i in range(len(m_questions))]
+    indexed_criteria = '\n'.join(
+        [f"{m_questions.index[i]}. " + m_questions.iloc[i] for i in range(len(m_questions))]
     )
 
     return openai.ChatCompletion.create(
         messages=[
-            {"role": "system", "content": sys_message},
-            {"role": "user", "content": prompt},
+            {"role": "system", "content": "You evaluate comments on an e-cigarette product against a list of criteria I provide you."},
+            {"role": "user", "content": prompt+indexed_criteria},
         ],
         model="gpt-4",
         temperature=0,
