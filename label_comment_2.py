@@ -1,9 +1,12 @@
+import random
+
 import pandas as pd
 import numpy as np
 import openai
 from retry import retry
 import time
 import os
+import re
 import logging
 from datetime import datetime
 
@@ -22,73 +25,121 @@ def get_response_from_list(m_comment, m_questions):
     # each criterion from the list and answer a question that take a form like this: Does this comment mention [the criterion]?
     # I need {len(m_questions)} answers in a list indexed by numbers in the exact same order as the criteria list and separated by one new line character.
     # You should give me one and only one answer for each criterion! Give me the answers in yes/no only. Don't give me the questions.'''
-
-    comment_string = '\n'.join(
-        [f"{chr(97+i)}. " + m_comment.iloc[i] for i in range(len(m_comment))]
-    )
-    prompt = f'''Here is a buyer's comment of e-cigarette: "{m_comment}".
-    Give me the numerical indices of the following criteria that this comment mentions. 
-    I need answer in the form like "25, 33, 89, 100"\n'''
+    if type(m_comment) is str:
+        comment_string = m_comment
+    else:
+        comment_string = '\n'.join(
+            [f"{num_to_letter_index(i)}. " + m_comment.iloc[i] for i in range(len(m_comment))]
+        )
+    # prompt = f'''Here is a buyer's comment of e-cigarette: "{comment_string}".
+    # Which ones of the following criteria does this comment mention? Answer simply with the numerical indices.
+    # \n'''
+    prompt = f'''Here are a list buyer's comments of e-cigarette: "{comment_string}". 
+    In the exact order, take one comment at a time and answer:
+    Which ones of the following criteria does this comment mention? Answer simply with the numerical indices.
+    \n'''
 
     indexed_criteria = '\n'.join(
         [f"{m_questions.index[i]}. " + m_questions.iloc[i] for i in range(len(m_questions))]
     )
-
+    print(prompt+indexed_criteria)
     return openai.ChatCompletion.create(
         messages=[
             {"role": "system", "content": "You evaluate comments on an e-cigarette product against a list of criteria I provide you."},
             {"role": "user", "content": prompt+indexed_criteria},
         ],
         model="gpt-4",
-        temperature=0,
-        request_timeout=60,
+        temperature=0.1,
+        request_timeout=300,
     )
 
 
-def comment_labeling_with_gpt(m_comments, m_questions):
+def num_to_letter_index(num: int):
+    quotient = num // 26
+    remainder = num % 26
+    if quotient == 0:
+        return chr(97+num)
+    else:
+        return chr(97+quotient-1)+chr(97+remainder)
+
+def letter_index_to_num(ind: str):
+    num = -1
+    rev_ind = list(reversed(ind))
+    for i in range(len(ind)):
+        num += (26**i)*(ord(rev_ind[i])-96)
+    return num
+
+
+def comment_labeling_with_gpt(m_comments, m_criteria, batch_questions=False, batch_comments=True):
     # comments: a DataFrame containing the comments.
-    # questions: a Series whose indexes are rough labels and values are formulated questions
+    # criteria: a Series of criteria
 
     # 初始回答汇总列表
     all_answers = []
 
-    # divide one Series of questions into several smaller Series
-    # of questions to comply with the 4096 token limit
-    batched_questions = []
-    numb = 4
-    # number of batches (which would likely be numb + 1)
-    for i in range(numb):
-        batched_questions.append(
-            m_questions[
-                len(m_questions) // numb * i : len(m_questions) // numb * (i + 1)
-            ]
-        )
-    if len(m_questions) // numb * numb < len(m_questions):
-        batched_questions.append(m_questions[len(m_questions) // numb * numb:])
-    print("successfully batched into ", len(batched_questions), " batches")
+    # divide the Series of criteria into several smaller Series
+    # to comply with the token limit
+    if batch_questions:
+        batched_criteria = []
+        label_numb = len(m_criteria) // 100  # number of batches if 100 questions per batch
+        # number of batches (which would very possibly be label_numb + 1)
+        for i in range(label_numb):
+            batched_criteria.append(
+                m_criteria[
+                len(m_criteria) // label_numb * i: len(m_criteria) // label_numb * (i + 1)
+                ]
+            )
+        if len(m_criteria) // label_numb * label_numb < len(m_criteria):
+            batched_criteria.append(m_criteria[len(m_criteria) // label_numb * label_numb:])
+        print("successfully batched criteria into ", len(batched_criteria), " batches")
+    else:
+        batched_criteria = [m_criteria]
+        print("successfully read questions. You opted not to batch questions.")
+
+    # divide the Series of comments into several smaller Series
+    # to comply with the token limit
+    if batch_comments:
+        batched_comments = []
+        comment_numb = len(m_comments) // 50  # number of batches if 50 comments per batch
+        # number of batches (which would very possibly be comment_numb + 1)
+        for i in range(comment_numb):
+            batched_comments.append(
+                m_comments[
+                    len(m_comments) // comment_numb * i : len(m_comments) // comment_numb * (i + 1)
+                ]
+            )
+        if len(m_comments) // comment_numb * comment_numb < len(m_comments):
+            batched_comments.append(m_comments[len(m_comments) // comment_numb * comment_numb:])
+        print("successfully batched criteria into ", len(batched_comments), " batches")
+    else:
+        batched_comments = [m_comments]
+        print("successfully read questions. You opted not to batch questions.")
 
     counter = 1
     try:
-        for c in range(len(m_comments)):
-            comment = m_comments.iloc[c]
-            answers = pd.DataFrame("//", columns=m_questions.index, index=[comment])
-            for j in range(len(batched_questions)):
+        for c in range(len(batched_comments)):
+            this_comments = batched_comments[c]
+            answers = pd.DataFrame(0, columns=m_criteria.index, index=[this_comments.index])
+            for j in range(len(batched_criteria)):
                 # 将每个问题上传给ChatGPT并获取回答
-                this_batch = batched_questions[j]
-                response = get_response_from_list(comment, this_batch)
+                this_criteria = batched_criteria[j]
+                response = get_response_from_list(this_comments, this_criteria)
                 print("successfully responded")
                 list_of_resp = (response["choices"][0]["message"]["content"]).split(
-                    "\n", len(this_batch) - 1
+                    "\n", len(this_criteria) - 1
                 )
-                if len(list_of_resp) == len(this_batch):
+                if len(list_of_resp) == len(this_criteria):
                     print("correct number of responses")
                 else:
                     print("wrong number of responses")
                     print(len(list_of_resp), " responses")
-                    print(len(this_batch), " questions")
-                answers.loc[comment, this_batch.index[: len(list_of_resp)]] = list_of_resp
+                    print(len(this_criteria), " comments")
+                for resp in list_of_resp:
+                    mentioned_criteria_indices = re.findall('\d+', resp)
+                    comment_index = letter_index_to_num(resp.split('.')[0])
+                    answers.loc[comment_index, mentioned_criteria_indices] = 1
                 print(
-                    f"{counter}; {m_comments.index[c]}th comment; {j}th batch; {datetime.now()}"
+                    f"{counter}; ({this_comments.index.tolist()}) comment; {this_criteria.index.tolist()}criteria; {datetime.now()}"
                 )  # counter提示程序正常运行
                 counter += 1
             all_answers.append(answers.copy())
@@ -151,7 +202,6 @@ def main(comment_file_name, read_directory, save_directory, questions_directory,
     # Continue reading comments from the last one unprocessed
     g_comments = pd.read_csv(read_path, index_col=0)['comment'].dropna().loc[last_comment:]
 
-    print(g_comments)
     openai.api_key = api_key  # ChatGPT密匙
     new_results = comment_labeling_with_gpt(g_comments, g_questions)
     refill_na_values(
@@ -171,6 +221,6 @@ def main(comment_file_name, read_directory, save_directory, questions_directory,
 
 g_labels_questions = pd.read_csv('label_and_questions.csv', index_col=0)['criterion']
 g_comments = pd.read_csv('data/weedmaps.csv', index_col=0)['comment'].dropna()
-openai.api_key=''
-print(get_response_from_list(g_comments[11:15], g_labels_questions[:20])["choices"][0]["message"]["content"])
+openai.api_key='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'
+
 
