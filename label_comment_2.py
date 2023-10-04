@@ -7,6 +7,7 @@ import os
 import re
 import logging
 from datetime import datetime
+import tiktoken
 
 
 # 获取回答
@@ -111,32 +112,39 @@ def insert_response_into_target_matrix(response, outmatrix, comment_indices):
     return outmatrix.copy()
 
 
-def divide_into_batches(data, length_of_batch):
+def divide_into_batches(data, size_of_batch):
     # divide the Series of data into several smaller Series
     # to comply with the token limit or runtime efficiency
     # data: the source data that needs to be divided
     # length_of_batch: the number of items in each patch
-
-    if 0 < length_of_batch <= len(data):
-        batch_list = []
-        # number of batches (which would very possibly be label_numb + 1)
-        label_numb = len(data) // length_of_batch
-        for i in range(label_numb):
-            batch_list.append(
-                data[
-                len(data) // label_numb * i: len(data) // label_numb * (i + 1)
-                ]
-            )
-        if len(data) // label_numb * label_numb < len(data):
-            batch_list.append(data[len(data) // label_numb * label_numb:])
-        print("successfully batched criteria into ", len(batch_list), " batches")
+    if type(data) is pd.io.parsers.readers.TextFileReader:
+        next_batch = []
+        tokens = 3
+        next_chunk = data.get_chunk(3)
+        tokens +=
+        while
     else:
-        batch_list = [data]
-        print("successfully read criteria. You opted not to batch criteria.")
-    return batch_list
+        if 0 < size_of_batch <= len(data):
+            batch_list = []
+            # number of batches (which would very possibly be label_numb + 1)
+            label_numb = len(data) // size_of_batch
+            for i in range(label_numb):
+                batch_list.append(
+                    data[
+                    len(data) // label_numb * i: len(data) // label_numb * (i + 1)
+                    ]
+                )
+            if len(data) // label_numb * label_numb < len(data):
+                batch_list.append(data[len(data) // label_numb * label_numb:])
+            print("successfully batched criteria into ", len(batch_list), " batches")
+        else:
+            batch_list = [data]
+            print("successfully read criteria. You opted not to batch criteria.")
+        return batch_list
 
 
 def comment_labeling_with_gpt(batched_comments, batched_criteria, criteria_batch_size, comments_batch_size):
+    # a generator function that yields results by batch
     # comments: a Series of comments.
     # criteria: a Series of criteria
 
@@ -144,12 +152,12 @@ def comment_labeling_with_gpt(batched_comments, batched_criteria, criteria_batch
     all_answers = []
 
     counter = 1
-    try:
-        for c in range(len(batched_comments)):
-            this_comments = batched_comments[c]
-            # initialize the output matrix with np.nan
-            for j in range(len(batched_criteria)):
-                # 将每个问题上传给ChatGPT并获取回答
+    for c in range(len(batched_comments)):
+        this_comments = batched_comments[c]
+        # initialize the output matrix with np.nan
+        for j in range(len(batched_criteria)):
+            # 将每个问题上传给ChatGPT并获取回答
+            try:
                 this_criteria = batched_criteria[j]
                 answers = pd.DataFrame(columns=this_criteria.index, index=this_comments.index)
                 response = get_response_from_gpt(this_comments, this_criteria)
@@ -162,14 +170,13 @@ def comment_labeling_with_gpt(batched_comments, batched_criteria, criteria_batch
                     f"[{this_criteria.index[0]}, {this_criteria.index[-1]}] criteria; {datetime.now()}"
                 )  # counter提示程序正常运行
                 counter += 1
-                yield answers
-    except Exception as err:
-        # 如果出错，保存现有的回答，防止已有进度丢失
-        print(err)
-    finally:
-        concated_ans = pd.concat(all_answers)
-        print(len(concated_ans), 'answers returned from ', len(m_comments), 'comments received')
-        return concated_ans
+
+            # 如果出错，保存现有的回答，防止已有进度丢失
+            except Exception as err:
+                print(err)
+            finally:
+                yield answers, this_comments, this_criteria
+
 
 
 #         all_answers_df = pd.concat(all_answers)
@@ -200,34 +207,38 @@ def main(comment_file_name, read_dir, save_dir, criteria_file_dir, api_key='', c
         last_processed_comment_index = 0
 
     # Continue reading comments from the last one unprocessed
-    g_comments = pd.read_csv(read_path, index_col=0)['comment'].loc[last_processed_comment_index:]
+    g_comments_reader = pd.read_csv(read_path, index_col=0, iterator=True)['comment'].loc[last_processed_comment_index:]
 
     # batch process criteria and comments
     batched_criteria = divide_into_batches(g_criteria, criteria_batch_size)
-    batched_comments = divide_into_batches(g_comments, comments_batch_size)
+    batched_comments = divide_into_batches(g_comments_reader, comments_batch_size)
 
     # openai.api_key = api_key  # ChatGPT密匙
-    new_results = comment_labeling_with_gpt(g_comments, g_criteria,
-                                            criteria_batch_size=criteria_batch_size,
-                                            comments_batch_size=comments_batch_size)
+    results_by_batch_generator = comment_labeling_with_gpt(batched_comments, batched_criteria)
 
-    # 检查无效值
-    naindxs = new_results[new_results.isna().any(axis=1)].index
-    if len(naindxs) > 0:  # 若有无效值，将对应评论重新处理
-        print("nan values are found at ", naindxs.tolist())
-        response = get_response_from_gpt(g_comments[naindxs], g_criteria)
-        print(response)
-        new_results = insert_response_into_target_matrix(response, new_results, naindxs)
-    else:
-        print("No nan values are found! All comments have been processed!")
-    new_results.index = g_comments[new_results.index]
-    new_results.to_csv(os.path.join(save_dir, comment_file_name), header=False, mode='a')
-    print(
-        (time.time() - start) / len(new_results.index) / len(new_results.columns)
-    )  # Print average processing time
+    while True:
+        try:
+            new_results, current_comments, current_criteria = next(results_by_batch_generator)
+        except StopIteration:
+            break
+        # 检查无效值
+        naindxs = new_results[new_results.isna().any(axis=1)].index
+        if len(naindxs) > 0:  # 若有无效值，将对应评论重新处理
+            print("nan values are found at ", naindxs.tolist())
+            response = get_response_from_gpt(current_comments[naindxs], current_criteria)
+            print(response)
+            new_results = insert_response_into_target_matrix(response, new_results, naindxs)
+        else:
+            print("No nan values are found! All comments have been processed!")
+        new_results.index = current_comments[new_results.index]
+        new_results.to_csv(os.path.join(save_dir, comment_file_name), header=False, mode='a')
+        print(
+            (time.time() - start) / len(new_results.index) / len(new_results.columns)
+        )  # Print average processing time
 
 
 openai.api_key = ''  # key
+tokeniser = tiktoken.encoding_for_model("gpt-4")
 
 # 运行
 if __name__ == '__main__':
@@ -236,6 +247,7 @@ if __name__ == '__main__':
     # main(评论文件名，读取评论文件路径，保存结果路径，标签文件地址)
     # api_key: 选填
     # criteria_batch_size/comment_batch_size: 分批处理中一批次的容量大小，0表示不分批
+    # 尽量保持criteria_batch_size=0
     main(
         'weedmaps.csv',
         'data',
