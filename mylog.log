@@ -281,3 +281,4 @@
 2023-09-21 20:09:32,046 error_code=insufficient_quota error_message='You exceeded your current quota, please check your plan and billing details.' error_param=None error_type=insufficient_quota message='OpenAI API error received' stream_error=False
 2023-09-21 20:09:32,047 You exceeded your current quota, please check your plan and billing details., retrying in 5 seconds...
 2023-09-21 20:09:37,151 error_code=insufficient_quota error_message='You exceeded your current quota, please check your plan and billing details.' error_param=None error_type=insufficient_quota message='OpenAI API error received' stream_error=False
+2023-09-26 14:37:42,173 error_code=invalid_api_key error_message='Incorrect API key provided: sk-mecwj***************************************feid. You can find your API key at https://platform.openai.com/account/api-keys.' error_param=None error_type=invalid_request_error message='OpenAI API error received' stream_error=False
