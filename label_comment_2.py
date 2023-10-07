@@ -29,28 +29,7 @@ def get_response_from_gpt(m_comments, m_criteria):
     # You should give me one and only one answer for each criterion! Give me the answers in yes/no only.
     # Don't give me the questions.'''
 
-    if type(m_comments) is str:
-        indexed_comment_string = m_comments
-    else:
-        indexed_comment_string = "comment's index | comment\n----|----------\n" + '\n'.join(
-            [f"{num_to_letter_index(i)} | '" + m_comments[i] + "'" for i in m_comments.index]
-        )
-    indexed_criteria_string = "criterion's index | criterion\n----|------\n" + '\n'.join(
-        [f"{i} | " + m_criteria[i] for i in m_criteria.index]
-    )
-    # prompt = f'''Here is a buyer's comment of e-cigarette: "{indexed_comment_string}".
-    # Which ones of the following criteria does this comment mention? Answer simply with the numerical indices.
-    # \n'''
-    prompt = f'''Here is a list of buyer's comments on an e-cigarette product:\n"{indexed_comment_string}" 
-
-In the exact order, take one comment at a time and answer:
-Which ones of the following criteria does this comment mention? 
-Answer simply with the numerical indices!
-If the comment doesn't mention any of the criteria, return an empty list for that answer.
-Your response should consist of lines in the format as such:
-[a comment's index] : [a list of indices of the mentioned criteria by the comment]
-
-\n{indexed_criteria_string}'''
+    prompt = prompt_formulator(m_comments, m_criteria)
 
     print(prompt)
     return openai.ChatCompletion.create(
@@ -64,6 +43,34 @@ Your response should consist of lines in the format as such:
         request_timeout=300,
     )
 
+
+def prompt_formulator(m_comments, m_criteria):
+    if type(m_comments) is str:
+        indexed_comment_string = m_comments
+    else:
+        indexed_comment_string = "comment's index | comment\n----|----------\n" + "\n".join(
+            [
+                f"{num_to_letter_index(i)} | '" + m_comments[i] + "'"
+                for i in m_comments.index
+            ]
+        )
+    indexed_criteria_string = "criterion's index | criterion\n----|------\n" + "\n".join(
+        [f"{i} | " + m_criteria[i] for i in m_criteria.index]
+    )
+    # prompt = f'''Here is a buyer's comment of e-cigarette: "{indexed_comment_string}".
+    # Which ones of the following criteria does this comment mention? Answer simply with the numerical indices.
+    # \n'''
+    prompt = f"""Here is a list of buyer's comments on an e-cigarette product:\n"{indexed_comment_string}" 
+    
+    In the exact order, take one comment at a time and answer:
+    Which ones of the following criteria does this comment mention? 
+    Answer simply with the numerical indices!
+    If the comment doesn't mention any of the criteria, return an empty list for that answer.
+    Your response should consist of lines in the format as such:
+    [a comment's index] : [a list of indices of the mentioned criteria by the comment]
+    
+    \n{indexed_criteria_string}"""
+    return prompt
 
 def num_to_letter_index(num: int):
     # number to letter, e.g. 29---‘ad’
@@ -118,11 +125,17 @@ def divide_into_batches(data, size_of_batch):
     # data: the source data that needs to be divided
     # length_of_batch: the number of items in each patch
     if type(data) is pd.io.parsers.readers.TextFileReader:
-        next_batch = []
-        tokens = 3
-        next_chunk = data.get_chunk(3)
-        tokens +=
-        while
+        while True:
+            next_batch = -1
+            try:
+                next_batch = data.get_chunk(3)
+                while tokeniser.encode(next_batch) <= 7200:
+                    next_batch = pd.concat((next_batch, data.get_chunk(3)))
+            except StopIteration:
+                print("batching completed")
+            finally:
+                yield next_batch
+
     else:
         if 0 < size_of_batch <= len(data):
             batch_list = []
@@ -157,9 +170,9 @@ def comment_labeling_with_gpt(batched_comments, batched_criteria, criteria_batch
         # initialize the output matrix with np.nan
         for j in range(len(batched_criteria)):
             # 将每个问题上传给ChatGPT并获取回答
+            this_criteria = batched_criteria[j]
+            answers = pd.DataFrame(columns=this_criteria.index, index=this_comments.index)
             try:
-                this_criteria = batched_criteria[j]
-                answers = pd.DataFrame(columns=this_criteria.index, index=this_comments.index)
                 response = get_response_from_gpt(this_comments, this_criteria)
                 print(response)
                 print("successfully responded")
@@ -214,7 +227,7 @@ def main(comment_file_name, read_dir, save_dir, criteria_file_dir, api_key='', c
     batched_comments = divide_into_batches(g_comments_reader, comments_batch_size)
 
     # openai.api_key = api_key  # ChatGPT密匙
-    results_by_batch_generator = comment_labeling_with_gpt(batched_comments, batched_criteria)
+    results_by_batch_generator = comment_labeling_with_gpt(batched_comments, batched_criteria, comments_batch_size, criteria_batch_size)
 
     while True:
         try:
