@@ -1,3 +1,5 @@
+import math
+
 import pandas as pd
 import numpy as np
 import openai
@@ -12,7 +14,7 @@ import collections
 
 
 # 获取回答
-@retry(exceptions=Exception, tries=10, delay=5)  # 若出错，重试20次，每次暂停5秒
+@retry(exceptions=openai.error.Timeout, tries=10, delay=5)  # 若出错，重试20次，每次暂停5秒
 def get_response_from_gpt(m_comments, m_criteria):
     # comment: a string of a single comment
     # questions: a list of questions about the comment to be fed to GPT
@@ -32,7 +34,7 @@ def get_response_from_gpt(m_comments, m_criteria):
 
     prompt = prompt_formulator(m_comments, m_criteria)
 
-    print(prompt)
+    print("prompt sent to gpt")
     return openai.ChatCompletion.create(
         messages=[
             {"role": "system",
@@ -51,7 +53,7 @@ def prompt_formulator(m_comments, m_criteria):
     else:
         indexed_comment_string = "comment's index | comment\n----|----------\n" + "\n".join(
             [
-                f"{num_to_letter_index(i)} | '" + m_comments[i] + "'"
+                f"{num_to_letter_index(i)} | '" + m_comments.loc[i, 'comment'] + "'"
                 for i in m_comments.index
             ]
         )
@@ -75,7 +77,6 @@ def prompt_formulator(m_comments, m_criteria):
 
 def num_to_letter_index(num: int):
     # number to letter, e.g. 29---‘ad’
-
     quotient = num // 26
     remainder = num % 26
     if quotient == 0:
@@ -132,11 +133,10 @@ def divide_into_batches(data_reader, size_of_batch):
         raise TypeError("Only an Iterator type is allowed.")
     if size_of_batch == 0:
         while True:
-            next_batch = 0
+            next_batch = []
             try:
                 next_batch = data_reader.get_chunk(3)
-                print(next_batch)
-                while len(tokeniser.encode(prompt_formulator(next_batch['comment'], g_criteria))) <= 7200:
+                while len(tokeniser.encode(prompt_formulator(next_batch, g_criteria))) <= 6500:
                     a = pd.concat((next_batch, data_reader.get_chunk(3)))
                     next_batch = a
             except StopIteration:
@@ -155,7 +155,7 @@ def divide_into_batches(data_reader, size_of_batch):
                 yield next_batch
     elif size_of_batch > 0:
         while True:
-            next_batch = -1
+            next_batch = []
             try:
                 next_batch = data_reader.get_chunk(size_of_batch)
             except StopIteration:
@@ -189,13 +189,10 @@ def comment_labeling_with_gpt(batched_comments_generator, m_criteria):
     # m_criteria: a Series of criteria
 
     while True:
-        try:
-            this_comments = next(batched_comments_generator)
-            if this_comments == -1:
-                break
-        except StopIteration:
+        this_comments = next(batched_comments_generator)
+        if len(this_comments) == 0:
             print("all comments read")
-            break
+            yield None, None
         # initialize the output matrix with np.nan
             # 将每个问题上传给ChatGPT并获取回答
         answers = pd.DataFrame(columns=m_criteria.index, index=this_comments.index)
@@ -243,38 +240,35 @@ def main(comment_file_name, read_dir, save_dir, criteria_file_dir, api_key='', c
 
     # Continue reading comments from the last one unprocessed
     g_comments_reader = pd.read_csv(read_path, index_col=0, iterator=True)
-    g_comments_reader.get_chunk(0)
+    g_comments_reader.get_chunk(last_processed_comment_length)
 
     # batch comments
     batched_comments_generator = divide_into_batches(g_comments_reader, comments_batch_size)
-    for i in range(3):
-        print(next(batched_comments_generator))
     # openai.api_key = api_key  # ChatGPT密匙
-    #results_by_batch_generator = comment_labeling_with_gpt(batched_comments_generator, g_criteria)
-#
-    #while True:
-    #    try:
-    #        new_results, current_comments = next(results_by_batch_generator)
-    #    except StopIteration:
-    #        print("all comments processed")
-    #        break
-    #    # 检查无效值
-    #    naindxs = new_results[new_results.isna().any(axis=1)].index
-    #    if len(naindxs) > 0:  # 若有无效值，将对应评论重新处理
-    #        print("nan values are found at ", naindxs.tolist())
-    #        response = get_response_from_gpt(current_comments[naindxs], g_criteria)
-    #        print(response)
-    #        new_results = insert_response_into_target_matrix(response, new_results, naindxs)
-    #    else:
-    #        print("No nan values are found! All comments have been processed!")
-    #    new_results.index = current_comments[new_results.index]
-    #    new_results.to_csv(os.path.join(save_dir, comment_file_name), header=False, mode='a')
-    #    print(
-    #        (time.time() - start) / len(new_results.index) / len(new_results.columns)
-    #    )  # Print average processing time
+    results_by_batch_generator = comment_labeling_with_gpt(batched_comments_generator, g_criteria)
+
+    while True:
+        new_results, current_comments = next(results_by_batch_generator)
+        if new_results is None:
+            break
+        # 检查无效值
+        naindxs = new_results[new_results.isna().any(axis=1)].index
+        if len(naindxs) > 0:  # 若有无效值，将对应评论重新处理
+            print("nan values are found at ", naindxs.tolist())
+            response = get_response_from_gpt(current_comments[naindxs], g_criteria)
+            print(response)
+            new_results = insert_response_into_target_matrix(response, new_results, naindxs)
+        else:
+            print("No nan values are found! All comments have been processed!")
+        new_results['comment'] = current_comments['comment']
+        new_results.to_csv(os.path.join(save_dir, comment_file_name), header=False, mode='a')
+        print(
+            (time.time() - start) / len(new_results.index) / len(new_results.columns)
+        )  # Print average processing time
+    return 0
 
 
-openai.api_key = ''  # key
+openai.api_key = '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'  # key
 tokeniser = tiktoken.encoding_for_model("gpt-4")
 
 # 运行
@@ -288,7 +282,7 @@ if __name__ == '__main__':
     #                   0 - smart batch
     #                  >0 - fixed batch size
     main(
-        'weedmaps.csv',
+        'yelp.csv',
         'data',
         'processed-results-2',
         'label_and_questions.csv',
