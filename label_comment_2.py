@@ -1,5 +1,4 @@
 import math
-
 import pandas as pd
 import numpy as np
 import openai
@@ -60,20 +59,19 @@ def prompt_formulator(m_comments, m_criteria):
     indexed_criteria_string = "criterion's index | criterion\n----|------\n" + "\n".join(
         [f"{i} | " + m_criteria[i] for i in m_criteria.index]
     )
-    # prompt = f'''Here is a buyer's comment of e-cigarette: "{indexed_comment_string}".
-    # Which ones of the following criteria does this comment mention? Answer simply with the numerical indices.
-    # \n'''
-    prompt = f"""Here is a list of buyer's comments on an e-cigarette product:\n"{indexed_comment_string}" 
-    
-    In the exact order, take one comment at a time and answer:
-    Which ones of the following criteria does this comment mention? 
-    Answer simply with the numerical indices!
-    If the comment doesn't mention any of the criteria, return an empty list for that answer.
-    Your response should consist of lines in the format as such:
-    [a comment's index] : [a list of indices of the mentioned criteria by the comment]
-    
-    \n{indexed_criteria_string}"""
+    prompt = f'Here is a list of buyer\'s comments on an e-cigarette product:\n\"{indexed_comment_string}\"' \
+             "\nIn the exact order, take one comment at a time and answer two questions:" \
+             "How strong is the comment's emotion from 1-5, 1 being the weakest emotion? " \
+             "Which ones of the following criteria does this comment mention?" \
+             "Answer simply with the numerical indices!" \
+             "If the comment doesn't mention any of the criteria, return an empty list for that answer." \
+             "\nYour response should consist of lines in the format as such:" \
+             "[comment's index] : [comment's emotion strength rate 1-5] : " \
+             "[a list of indices of the mentioned criteria by the comment]" \
+             "\nHere is the list of criteria:" \
+             f"\n{indexed_criteria_string}"
     return prompt
+
 
 def num_to_letter_index(num: int):
     # number to letter, e.g. 29---‘ad’
@@ -112,12 +110,18 @@ def insert_response_into_target_matrix(response, outmatrix, comment_indices):
         print(len(list_of_resp), " responses")
         print(num_of_comments, " comments")
     for resp in list_of_resp:
-        comment_index_split = resp.split(":")[0]
-        criteria_index_split = resp.split(":")[1]
-        comment_index = letter_index_to_num(re.findall("[a-z]+", comment_index_split)[0])
-        mentioned_criteria_indices = np.array(re.findall("\d+", criteria_index_split), dtype="i")
-        outmatrix.loc[comment_index, :] = 0
-        outmatrix.loc[comment_index, mentioned_criteria_indices] = 1
+        try:
+            comment_index_split = resp.split(":")[0]
+            emotional_strength_split = resp.split(":")[1]
+            criteria_index_split = resp.split(":")[2]
+            comment_index = letter_index_to_num(re.findall("[a-z]+", comment_index_split)[0])
+            emotional_strength = int(re.findall("\d", emotional_strength_split)[0])
+            mentioned_criteria_indices = np.array(re.findall("\d+", criteria_index_split), dtype="i")
+            outmatrix.loc[comment_index, :] = 0
+            outmatrix.loc[comment_index, "emotionalstrength"] = emotional_strength
+            outmatrix.loc[comment_index, mentioned_criteria_indices] = 1
+        except IndexError:
+            continue
     return outmatrix.copy()
 
 
@@ -194,8 +198,9 @@ def comment_labeling_with_gpt(batched_comments_generator, m_criteria):
             print("all comments read")
             yield None, None
         # initialize the output matrix with np.nan
-            # 将每个问题上传给ChatGPT并获取回答
+        # 将每个问题上传给ChatGPT并获取回答
         answers = pd.DataFrame(columns=m_criteria.index, index=this_comments.index)
+        answers["emotionstrength"] = np.nan
         response = get_response_from_gpt(this_comments, m_criteria)
         print(response)
         print("successfully responded")
@@ -207,7 +212,6 @@ def comment_labeling_with_gpt(batched_comments_generator, m_criteria):
             f"[{m_criteria.index[0]}, {m_criteria.index[-1]}] criteria"
         )
         yield answers, this_comments
-
 
 
 #         all_answers_df = pd.concat(all_answers)
